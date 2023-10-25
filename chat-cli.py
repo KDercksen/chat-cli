@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from os import environ
 import argparse
+import json
+from collections import defaultdict
+from os import environ
 
 import openai
-from collections import defaultdict
-import json
 from dotenv import load_dotenv
 from rich import print as rprint
 from rich.console import Console
