@@ -4,17 +4,16 @@
 import argparse
 import json
 from collections import defaultdict
-from os import environ
 
-import openai
 from dotenv import load_dotenv
+from openai import OpenAI
 from rich import print as rprint
 from rich.console import Console
 from rich.markdown import Markdown
 
 load_dotenv()
 
-openai.api_key = environ["OPENAI_API_KEY"]
+openai_client = OpenAI()
 
 with open("pricing.json") as f:
     pricing = json.load(f)
@@ -39,7 +38,7 @@ def calculate_total_cost(token_counter, model, pricing):
 def get_chat_response(message, messages, token_counter, **kwargs):
     msg = {"role": "user", "content": message}
     messages += [msg]
-    completion = openai.ChatCompletion.create(
+    completion = openai_client.chat.completions.create(
         model=kwargs["model"], temperature=kwargs["temperature"], messages=messages
     )
     # update token_counter
@@ -67,6 +66,7 @@ if __name__ == "__main__":
             break
         rprint("[bold blue]Assistant:[/] [italic]thinking...[/]")
         response = get_chat_response(user_input, messages, token_counter, **args)
+        print(response)
         print("\033[A\033[K", end="")
         rprint(f"[bold red]{response['role'].capitalize()}:[/]")
         console.print(Markdown(response["content"]))
