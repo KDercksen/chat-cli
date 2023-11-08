@@ -3,4 +3,3 @@ services:
     build: .
     stdin_open: true
     tty: true
-    command: python chat-cli.py ${ARGS}
