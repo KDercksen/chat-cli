@@ -49,26 +49,27 @@ def get_chat_response(message, messages, token_counter, **kwargs):
     return messages[-1]
 
 
-p = argparse.ArgumentParser()
-p.add_argument("--model", type=str, default="gpt-3.5-turbo", choices=pricing.keys())
-p.add_argument("--temperature", type=float, default=1.0)
-args = p.parse_args()
+if __name__ == "__main__":
+    p = argparse.ArgumentParser()
+    p.add_argument("--model", type=str, default="gpt-3.5-turbo", choices=pricing.keys())
+    p.add_argument("--temperature", type=float, default=1.0)
+    args = p.parse_args()
 
-# convert args to mapping
-args = vars(args)
-console = Console()
+    # convert args to mapping
+    args = vars(args)
+    console = Console()
 
-# chat loop
-while True:
-    rprint("[bold green]User:[/]")
-    user_input = input("> ")
-    if user_input == "exit" or user_input == "quit":
-        break
-    rprint("[bold blue]Assistant:[/] [italic]thinking...[/]")
-    response = get_chat_response(user_input, messages, token_counter, **args)
-    print("\033[A\033[K", end="")
-    rprint(f"[bold red]{response['role'].capitalize()}:[/]")
-    console.print(Markdown(response["content"]))
+    # chat loop
+    while True:
+        rprint("[bold green]User:[/]")
+        user_input = input("> ")
+        if user_input == "exit" or user_input == "quit":
+            break
+        rprint("[bold blue]Assistant:[/] [italic]thinking...[/]")
+        response = get_chat_response(user_input, messages, token_counter, **args)
+        print("\033[A\033[K", end="")
+        rprint(f"[bold red]{response['role'].capitalize()}:[/]")
+        console.print(Markdown(response["content"]))
 
-cost = calculate_total_cost(token_counter, args["model"], pricing)
-rprint(f"[bold blue]Total cost of conversation:[/] $ {cost:.2f}")
+    cost = calculate_total_cost(token_counter, args["model"], pricing)
+    rprint(f"[bold blue]Total cost of conversation:[/] $ {cost:.2f}")

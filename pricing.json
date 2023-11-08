@@ -14,5 +14,9 @@
   "gpt-4-32k": {
     "prompt_tokens": 0.06,
     "completion_tokens": 0.12
+  },
+  "gpt-4-1106-preview": {
+    "prompt_tokens": 0.01,
+    "completion_tokens": 0.03
   }
 }
