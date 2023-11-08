@@ -69,7 +69,7 @@ if __name__ == "__main__":
         print(response)
         print("\033[A\033[K", end="")
         rprint(f"[bold red]{response.role.capitalize()}:[/]")
-        console.print(Markdown(response["content"]))
+        console.print(Markdown(response.content))
 
     cost = calculate_total_cost(token_counter, args["model"], pricing)
     rprint(f"[bold blue]Total cost of conversation:[/] $ {cost:.2f}")
