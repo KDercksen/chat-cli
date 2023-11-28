@@ -66,7 +66,6 @@ if __name__ == "__main__":
             break
         rprint("[bold blue]Assistant:[/] [italic]thinking...[/]")
         response = get_chat_response(user_input, messages, token_counter, **args)
-        print(response)
         print("\033[A\033[K", end="")
         rprint(f"[bold red]{response.role.capitalize()}:[/]")
         console.print(Markdown(response.content))
